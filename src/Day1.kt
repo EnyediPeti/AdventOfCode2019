@@ -1,12 +1,27 @@
 import kotlin.math.floor
 
 fun main() {
-    var fuelSum = 0.0
+    var fuelSum = 0
     moduleList.forEach {
-        fuelSum += floor(it / 3.0) - 2
+        fuelSum += calculateAllFuelForModuleAndFuel(it)
     }
     println(fuelSum)
 }
+
+private fun calculateAllFuelForModuleAndFuel(mass: Int): Int {
+    val moduleNeededFuel = calculateFuel(mass)
+    return if (moduleNeededFuel >= 1) {
+        moduleNeededFuel + calculateAllFuelForModuleAndFuel(moduleNeededFuel)
+    } else {
+        0
+    }
+}
+
+private fun calculateFuel(mass: Int) = (floor(mass / 3.0) - 2).toInt()
+
+val demoList = listOf(
+    14
+)
 
 val moduleList = listOf(
     142156,
